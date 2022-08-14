@@ -1,5 +1,5 @@
 {% set name = "mupdf" %}
-{% set version = "1.17.0" %}
+{% set version = "1.19.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.mupdf.com/downloads/archive/mupdf-{{ version }}-source.tar.xz
-  sha256: c935fb2593d9a28d9b56b59dad6e3b0716a6790f8a257a68fa7dcb4430bc6086
+  sha256: b5eac663fe74f33c430eda342f655cf41fa73d71610f0884768a856a82e3803e
   patches:
     # Make shared libs, rather than static
     # https://bugs.ghostscript.com/show_bug.cgi?id=702250
@@ -19,7 +19,7 @@ source:
     - Makerules.patch  # [osx]
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win]
   missing_dso_whitelist:   # [osx]
     - /System/Library/Frameworks/GLUT.framework/Versions/A/GLUT  # [osx]
