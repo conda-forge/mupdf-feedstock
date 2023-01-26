@@ -9,7 +9,7 @@
  LIBS += $(XLIBS) -lm
  
  ifneq ($(threading),no)
-@@ -232,46 +232,27 @@
+@@ -270,46 +270,27 @@
  
  # --- Library ---
  
