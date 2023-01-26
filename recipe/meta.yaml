@@ -1,13 +1,14 @@
 {% set name = "mupdf" %}
-{% set version = "1.19.1" %}
+{% set version = "1.21.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://www.mupdf.com/downloads/archive/mupdf-{{ version }}-source.tar.xz
-  sha256: b5eac663fe74f33c430eda342f655cf41fa73d71610f0884768a856a82e3803e
+  url: https://www.mupdf.com/downloads/archive/mupdf-{{ version }}-source.tar.lz
+  sha256: f23fc1ad9081375d9c5f2318d6e6e5c5be490ecb70b10ed7167932afbe1ccfb5
+          
   patches:
     # Make shared libs, rather than static
     # https://bugs.ghostscript.com/show_bug.cgi?id=702250
