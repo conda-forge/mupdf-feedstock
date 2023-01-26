@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://www.mupdf.com/downloads/archive/mupdf-{{ version }}-source.tar.gz
-  sha256: eb6e6c468416f7ad9f37be33ae00f899dad237e2
+  sha256: b24ddbe12506cc82de08d5cd494614ba08346f8175db1d98bcf938ff94925a54
           
   patches:
     # Make shared libs, rather than static
