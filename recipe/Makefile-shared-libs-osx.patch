@@ -67,7 +67,7 @@
  
  # --- Main tools and viewers ---
  
-@@ -416,10 +397,10 @@
+@@ -457,12 +457,12 @@
  	install -m 644 docs/man/*.1 $(DESTDIR)$(mandir)/man1
  
  	install -d $(DESTDIR)$(docdir)
@@ -78,6 +78,8 @@
 -	install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
 +	# install -m 644 docs/*.html docs/*.css docs/*.png $(DESTDIR)$(docdir)
 +	# install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
+ 
+ install: install-libs install-apps install-docs
  
  tarball:
  	bash scripts/archive.sh
