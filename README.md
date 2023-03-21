@@ -1,11 +1,11 @@
-About mupdf
-===========
+About mupdf-feedstock
+=====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mupdf-feedstock/blob/main/LICENSE.txt)
 
 Home: https://www.mupdf.com/
 
 Package license: AGPL-3.0-only
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/mupdf-feedstock/blob/main/LICENSE.txt)
 
 Summary: A lightweight PDF, XPS, and E-book viewer
 
