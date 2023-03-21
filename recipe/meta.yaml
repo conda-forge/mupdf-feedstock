@@ -19,7 +19,7 @@ source:
     - Makerules.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   # TODO: enable again osx when possible
   skip: true  # [win]
   missing_dso_whitelist:   # [osx]
