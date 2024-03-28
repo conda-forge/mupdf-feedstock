@@ -1,6 +1,17 @@
---- Makefile.ori	2022-08-15 23:32:42.950710308 -0400
-+++ Makefile	2022-08-26 17:13:29.495341185 -0400
-@@ -21,7 +21,7 @@
+From 2011279b784a4a27334ee8a6740fae9377bd7763 Mon Sep 17 00:00:00 2001
+From: Jan Janssen <janssen@mpie.de>
+Date: Thu, 28 Mar 2024 15:52:14 -0500
+Subject: [PATCH] macOS
+
+---
+ Makefile | 49 +++++++++++++++----------------------------------
+ 1 file changed, 15 insertions(+), 34 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 53cf06f..740b393 100644
+--- a/Makefile
++++ b/Makefile
+@@ -21,7 +21,7 @@ include Makethird
  # Do not specify CFLAGS or LIBS on the make invocation line - specify
  # XCFLAGS or XLIBS instead. Make ignores any lines in the makefile that
  # set a variable that was set on the command line.
@@ -9,12 +20,12 @@
  LIBS += $(XLIBS) -lm
  
  ifneq ($(threading),no)
-@@ -270,46 +270,27 @@
+@@ -293,46 +293,27 @@ generate: source/html/css-properties.h
  
  # --- Library ---
  
 -ifeq ($(shared),yes)
--MUPDF_LIB = $(OUT)/libmupdf.$(SO)
+-MUPDF_LIB = $(OUT)/libmupdf.$(SO)$(SO_VERSION)
 -ifeq ($(SO),dll)
 -MUPDF_LIB_IMPORT = $(OUT)/libmupdf_$(SO).a
 -LIBS_TO_INSTALL_IN_BIN = $(MUPDF_LIB)
@@ -63,23 +74,21 @@
  $(PKCS7_LIB) : $(PKCS7_OBJ)
 +	$(LINK_CMD) -v -shared -Wl,-install_name -Wl,libmupdf-pkcs7.dylib -undefined dynamic_lookup
 +
-+LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB)
++LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB) 
  
  # --- Main tools and viewers ---
  
-@@ -457,12 +457,12 @@
+@@ -487,10 +468,10 @@ install-docs:
  	install -m 644 docs/man/*.1 $(DESTDIR)$(mandir)/man1
  
  	install -d $(DESTDIR)$(docdir)
 -	install -d $(DESTDIR)$(docdir)/examples
 +	# install -d $(DESTDIR)$(docdir)/examples
- 	install -m 644 README COPYING CHANGES $(DESTDIR)$(docdir)
--	install -m 644 docs/*.html docs/*.css docs/*.png $(DESTDIR)$(docdir)
+ 	install -m 644 README CHANGES $(DESTDIR)$(docdir)
+-	install -m 644 $(wildcard COPYING LICENSE) $(DESTDIR)$(docdir)
 -	install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
-+	# install -m 644 docs/*.html docs/*.css docs/*.png $(DESTDIR)$(docdir)
++	# install -m 644 $(wildcard COPYING LICENSE) $(DESTDIR)$(docdir)
 +	# install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
  
  install: install-libs install-apps install-docs
  
- tarball:
- 	bash scripts/archive.sh
