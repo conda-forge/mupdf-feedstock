@@ -1,25 +1,36 @@
---- Makefile.orig	2020-03-25 11:02:34.874709800 -0500
-+++ Makefile	2020-03-26 15:50:24.164426027 -0500
-@@ -20,7 +20,7 @@
+From 878885071139f3252283d27bc7a35519f00b4962 Mon Sep 17 00:00:00 2001
+From: Jan Janssen <janssen@mpie.de>
+Date: Thu, 28 Mar 2024 15:45:22 -0500
+Subject: [PATCH] Linux patch
+
+---
+ Makefile | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 53cf06f..9414928 100644
+--- a/Makefile
++++ b/Makefile
+@@ -21,7 +21,7 @@ include Makethird
  # Do not specify CFLAGS or LIBS on the make invocation line - specify
  # XCFLAGS or XLIBS instead. Make ignores any lines in the makefile that
  # set a variable that was set on the command line.
 -CFLAGS += $(XCFLAGS) -Iinclude
 +CFLAGS += $(XCFLAGS) -Iinclude -fPIC
  LIBS += $(XLIBS) -lm
-
+ 
  ifneq ($(threading),no)
-@@ -415,10 +415,10 @@
+@@ -487,10 +487,10 @@ install-docs:
  	install -m 644 docs/man/*.1 $(DESTDIR)$(mandir)/man1
  
  	install -d $(DESTDIR)$(docdir)
 -	install -d $(DESTDIR)$(docdir)/examples
-+	#install -d $(DESTDIR)$(docdir)/examples
- 	install -m 644 README COPYING CHANGES $(DESTDIR)$(docdir)
--	install -m 644 docs/*.html docs/*.css docs/*.png $(DESTDIR)$(docdir)
++	# install -d $(DESTDIR)$(docdir)/examples
+ 	install -m 644 README CHANGES $(DESTDIR)$(docdir)
+-	install -m 644 $(wildcard COPYING LICENSE) $(DESTDIR)$(docdir)
 -	install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
-+	#install -m 644 docs/*.html docs/*.css docs/*.png $(DESTDIR)$(docdir)
-+	#install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
++	# install -m 644 $(wildcard COPYING LICENSE) $(DESTDIR)$(docdir)
++	# install -m 644 docs/examples/* $(DESTDIR)$(docdir)/examples
  
- tarball:
- 	bash scripts/archive.sh
+ install: install-libs install-apps install-docs
+ 
