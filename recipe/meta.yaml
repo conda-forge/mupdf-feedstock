@@ -1,5 +1,5 @@
 {% set name = "mupdf" %}
-{% set version = "1.22.2" %}
+{% set version = "1.24.0" %}
 
 package:
   name: {{ name|lower }}
@@ -79,3 +79,4 @@ extra:
   recipe-maintainers:
     - xmnlab
     - scopatz
+    - jan-janssen
