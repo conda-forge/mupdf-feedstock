@@ -21,6 +21,6 @@ export USE_SYSTEM_JPEGXR=yes
 #ls -lh ${PREFIX}/lib
 
 # build and install
-make prefix="${PREFIX}" -j ${CPU_COUNT} all c++ python
+make prefix="${PREFIX}" -j ${CPU_COUNT} all c++
 # no make check
 make prefix="${PREFIX}" install
