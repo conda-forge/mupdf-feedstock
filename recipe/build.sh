@@ -23,11 +23,8 @@ export USE_SYSTEM_JPEGXR=yes
 # build and install
 make prefix="${PREFIX}" -j ${CPU_COUNT} all
 
-# no make check
-make prefix="${PREFIX}" install
-
 # build c++ bindings
-./scripts/mupdfwrap.py -d build/shared-release -b 01
+./scripts/mupdfwrap.py -d build/release -b 01
 
 # no make check
 make prefix="${PREFIX}" install
