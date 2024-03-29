@@ -40,8 +40,8 @@ requirements:
     - pkg-config
     - swig
     - python-clang
-  host:
     - python
+  host:
     - xorg-libxfixes  # [linux]
     - libglu  # [linux]
     - libgumbo
@@ -54,7 +54,6 @@ requirements:
     - harfbuzz
     - freeglut  # [linux or win]
   run:
-    - python
     - xorg-libxext  # [linux]
     - xorg-libx11  # [linux]
     - curl
