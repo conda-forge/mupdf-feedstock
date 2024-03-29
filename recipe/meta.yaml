@@ -38,7 +38,10 @@ requirements:
     - ninja  # [win]
     - make
     - pkg-config
+    - swig
+    - python-clang
   host:
+    - python
     - xorg-libxfixes  # [linux]
     - libglu  # [linux]
     - libgumbo
@@ -51,6 +54,7 @@ requirements:
     - harfbuzz
     - freeglut  # [linux or win]
   run:
+    - python
     - xorg-libxext  # [linux]
     - xorg-libx11  # [linux]
     - curl
