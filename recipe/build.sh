@@ -21,6 +21,10 @@ export USE_SYSTEM_JPEGXR=yes
 #ls -lh ${PREFIX}/lib
 
 # build and install
-make prefix="${PREFIX}" -j ${CPU_COUNT} all c++
+make prefix="${PREFIX}" -j ${CPU_COUNT} all
+
+# build c++ bindings
+./scripts/mupdfwrap.py -d build/shared-release -b 01
+
 # no make check
 make prefix="${PREFIX}" install
