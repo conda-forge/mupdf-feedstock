@@ -53,10 +53,12 @@ requirements:
     - curl
     - harfbuzz
     - freeglut  # [linux or win]
+    - mujs  # [unix]
   run:
     - xorg-libxext  # [linux]
     - xorg-libx11  # [linux]
     - curl
+    - mujs  # [unix]
 
 test:
   commands:
