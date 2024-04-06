@@ -31,4 +31,4 @@ make prefix="${PREFIX}" install
 make prefix="${PREFIX}" -j ${CPU_COUNT} c++
 
 # build and install
-# make prefix="${PREFIX}" install-shared-c++
+make prefix="${PREFIX}" install-shared-c++
