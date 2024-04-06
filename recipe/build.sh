@@ -11,7 +11,7 @@ if [[ "$target_platform" == osx* ]]; then
   #export SYS_FREETYPE_LIBS=" -lfreetype"
   #export SYS_FREETYPE_CFLAGS="${CFLAGS}"
 fi
-export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz"
+export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz -I ${PREFIX}/include"
 export XCFLAGS="${CFLAGS}"
 export XLIBS="${LIBS}"
 export USE_SYSTEM_LIBS=yes
