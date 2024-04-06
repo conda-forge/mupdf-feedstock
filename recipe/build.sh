@@ -16,6 +16,8 @@ export XCFLAGS="${CFLAGS}"
 export XLIBS="${LIBS}"
 export USE_SYSTEM_LIBS=yes
 export USE_SYSTEM_JPEGXR=yes
+export USE_SYSTEM_MUJS=yes
+export USE_SYSTEM_LCMS2=yes
 
 # diagnostics
 #ls -lh ${PREFIX}/lib
