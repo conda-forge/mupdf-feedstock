@@ -54,6 +54,7 @@ requirements:
     - harfbuzz
     - freeglut  # [linux or win]
     - mujs  # [unix]
+    - lcms2
   run:
     - xorg-libxext  # [linux]
     - xorg-libx11  # [linux]
