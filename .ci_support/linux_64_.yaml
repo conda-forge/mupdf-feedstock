@@ -24,6 +24,8 @@ freetype:
 - '2'
 harfbuzz:
 - '8'
+lcms2:
+- '2'
 openjpeg:
 - '2'
 target_platform:
