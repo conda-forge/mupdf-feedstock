@@ -17,6 +17,7 @@ source:
     - Makefile-shared-libs-osx.patch  # [osx]
     # OSX has libfreetype.a, not libfreetype2.a
     - Makerules.patch  # [osx]
+    - wrap.patch  # [osx]
 
 build:
   number: 1
