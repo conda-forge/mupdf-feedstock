@@ -24,4 +24,4 @@ export VENV_FLAG=""
 # build and install
 make prefix="${PREFIX}" shared=yes -j ${CPU_COUNT} all c++
 # no make check
-make prefix="${PREFIX}" install install-shared-c++
+make prefix="${PREFIX}" shared=yes install install-shared-c++
