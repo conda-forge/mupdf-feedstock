@@ -1,14 +1,14 @@
-From 9fab2df10bfed4bb1a4044d8ecac849cbafa058f Mon Sep 17 00:00:00 2001
+From 2b44cd07dd2e01c8a26f2d159238f9c747382a95 Mon Sep 17 00:00:00 2001
 From: Jan Janssen <jan-janssen@users.noreply.github.com>
-Date: Sat, 6 Apr 2024 21:42:05 -0500
+Date: Sat, 6 Apr 2024 20:42:55 -0500
 Subject: [PATCH] Update __main__.py
 
 ---
- scripts/wrap/__main__.py | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ scripts/wrap/__main__.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/scripts/wrap/__main__.py b/scripts/wrap/__main__.py
-index c479cb8cea..46650c14bc 100644
+index c479cb8cea..597fbfdef1 100644
 --- a/scripts/wrap/__main__.py
 +++ b/scripts/wrap/__main__.py
 @@ -1662,8 +1662,8 @@ def fn(name):
@@ -22,14 +22,3 @@ index c479cb8cea..46650c14bc 100644
                      if pyodide:
                          # Compile/link separately. Otherwise
                          # emsdk/upstream/bin/llvm-nm: error: a.out: No such
-@@ -1734,8 +1734,8 @@ def fn(name):
-                                 command,
-                                 force_rebuild,
-                                 )
--                        if command_was_run:
--                            macos_patch( libmupdfcpp, f'{build_dirs.dir_so}/libmupdf.dylib{so_version}')
-+                        # if command_was_run:
-+                        #     macos_patch( libmupdfcpp, f'{build_dirs.dir_so}/libmupdf.dylib{so_version}')
-                         if so_version and state.state_.linux:
-                             jlib.system(f'ln -sf libmupdfcpp.so{so_version} {build_dirs.dir_so}/libmupdfcpp.so')
- 
