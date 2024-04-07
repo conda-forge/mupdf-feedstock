@@ -11,7 +11,7 @@ if [[ "$target_platform" == osx* ]]; then
   export CFLAGS="${CFLAGS} -I $(ls -d ${PREFIX}/include/openjpeg-*)"
   #export SYS_FREETYPE_LIBS=" -lfreetype"
   #export SYS_FREETYPE_CFLAGS="${CFLAGS}"
-else:
+else
   export OS="Linux"
 fi
 export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz"
