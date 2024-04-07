@@ -16,13 +16,11 @@ export XCFLAGS="${CFLAGS}"
 export XLIBS="${LIBS} -lmujs -llcms2 -lgumbo"
 export USE_SYSTEM_LIBS=yes
 export USE_SYSTEM_JPEGXR=yes
-export USE_SYSTEM_MUJS=yes
-export USE_SYSTEM_LCMS2=yes
 
 # diagnostics
 #ls -lh ${PREFIX}/lib
 
 # build and install
-make prefix="${PREFIX}" -j ${CPU_COUNT} all
+make prefix="${PREFIX}" USE_SYSTEM_LIBS=yes -j ${CPU_COUNT} all
 # no make check
 make prefix="${PREFIX}" install
