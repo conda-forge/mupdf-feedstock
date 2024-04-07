@@ -22,13 +22,13 @@ export VENV_FLAG=""
 #ls -lh ${PREFIX}/lib
 
 # build and install
-make prefix="${PREFIX}" -j ${CPU_COUNT} all
+make prefix="${PREFIX}" shared=yes -j ${CPU_COUNT} all
 
 # no make check
 make prefix="${PREFIX}" install
 
 # build and install
-make prefix="${PREFIX}" -j ${CPU_COUNT} c++
+make prefix="${PREFIX}" shared=yes -j ${CPU_COUNT} c++
 
 # build and install
 make prefix="${PREFIX}" install-shared-c++
