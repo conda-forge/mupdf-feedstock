@@ -1,0 +1,24 @@
+From 2b44cd07dd2e01c8a26f2d159238f9c747382a95 Mon Sep 17 00:00:00 2001
+From: Jan Janssen <jan-janssen@users.noreply.github.com>
+Date: Sat, 6 Apr 2024 20:42:55 -0500
+Subject: [PATCH] Update __main__.py
+
+---
+ scripts/wrap/__main__.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/wrap/__main__.py b/scripts/wrap/__main__.py
+index c479cb8cea..597fbfdef1 100644
+--- a/scripts/wrap/__main__.py
++++ b/scripts/wrap/__main__.py
+@@ -1662,8 +1662,8 @@ def fn(name):
+                     cpp_files_text = ''
+                     for i in cpp_files:
+                         cpp_files_text += ' ' + os.path.relpath(i)
+-                    libmupdfcpp = f'{build_dirs.dir_so}/libmupdfcpp.so{so_version}'
+-                    libmupdf = f'{build_dirs.dir_so}/libmupdf.so{so_version}'
++                    libmupdfcpp = f'{build_dirs.dir_so}/libmupdfcpp.dylib'
++                    libmupdf = f'{build_dirs.dir_so}/libmupdf.dylib'
+                     if pyodide:
+                         # Compile/link separately. Otherwise
+                         # emsdk/upstream/bin/llvm-nm: error: a.out: No such
