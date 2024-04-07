@@ -13,7 +13,7 @@ if [[ "$target_platform" == osx* ]]; then
 fi
 export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz"
 export XCFLAGS="${CFLAGS}"
-export XLIBS="${LIBS}"
+export XLIBS="${LIBS} -lmujs -llcms2 -lgumbo"
 export USE_SYSTEM_LIBS=yes
 export USE_SYSTEM_JPEGXR=yes
 export USE_SYSTEM_MUJS=yes
