@@ -16,11 +16,12 @@ export XCFLAGS="${CFLAGS}"
 export XLIBS="${LIBS}"
 export USE_SYSTEM_LIBS=yes
 export USE_SYSTEM_JPEGXR=yes
+export VENV_FLAG=""
 
 # diagnostics
 #ls -lh ${PREFIX}/lib
 
 # build and install
-make prefix="${PREFIX}" -j ${CPU_COUNT} all
+make prefix="${PREFIX}" shared=yes -j ${CPU_COUNT} all c++
 # no make check
-make prefix="${PREFIX}" install
+make prefix="${PREFIX}" install install-shared-c++
