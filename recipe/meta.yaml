@@ -20,7 +20,7 @@ source:
     - wrap.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   missing_dso_whitelist:   # [osx]
     - /System/Library/Frameworks/GLUT.framework/Versions/A/GLUT  # [osx]
