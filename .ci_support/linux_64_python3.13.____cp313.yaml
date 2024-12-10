@@ -23,7 +23,7 @@ docker_image:
 freetype:
 - '2'
 harfbuzz:
-- '9'
+- '10'
 openjpeg:
 - '2'
 pin_run_as_build:
