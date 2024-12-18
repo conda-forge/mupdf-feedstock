@@ -14,6 +14,9 @@ if [[ "$target_platform" == osx* ]]; then
 else
   export TESSERACT=yes
 fi
+if [[ "$target_platform" == osx-arm64 ]]; then
+  export CFLAGS="${CFLAGS} -Wno-incompatible-function-pointer-types"
+fi
 export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz"
 export XCFLAGS="${CFLAGS}"
 export XLIBS="${LIBS}"
