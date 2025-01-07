@@ -1,11 +1,23 @@
---- Makerules.orig	2020-03-26 15:39:59.725834877 -0500
-+++ Makerules	2020-03-26 15:40:10.141808906 -0500
-@@ -115,7 +115,7 @@
+--- Makerules.orig	2025-01-07 09:04:32
++++ Makerules	2025-01-07 09:04:57
+@@ -160,7 +160,7 @@
  endif
- 
+
  # Default system libraries
 -SYS_FREETYPE_LIBS := -lfreetype2
 +SYS_FREETYPE_LIBS := -lfreetype
  SYS_HARFBUZZ_LIBS := -lharfbuzz
  SYS_JBIG2DEC_LIBS := -ljbig2dec
  SYS_JPEGXR_LIBS := -ljpegxr
+@@ -192,10 +192,6 @@
+   HAVE_GLUT := yes
+   SYS_GLUT_CFLAGS := -Wno-deprecated-declarations
+   SYS_GLUT_LIBS := -framework GLUT -framework OpenGL
+-  CC = xcrun cc
+-  AR = xcrun ar
+-  LD = xcrun ld
+-  RANLIB = xcrun ranlib
+
+   ifneq ($(ARCHFLAGS),)
+     $(warning "MacOS with ARCHFLAGS set. Assuming we are building for arm64, and setting HAVE_LIBCRYPTO to no.")
+

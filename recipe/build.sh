@@ -8,11 +8,15 @@ if [[ "$target_platform" == osx* ]]; then
   #export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib -v"
   export CFLAGS="${CFLAGS} -I ${PREFIX}/include/freetype2"
   export CFLAGS="${CFLAGS} -I $(ls -d ${PREFIX}/include/openjpeg-*)"
+  export CFLAGS="${CFLAGS} -Wno-incompatible-function-pointer-types"
   #export SYS_FREETYPE_LIBS=" -lfreetype"
   #export SYS_FREETYPE_CFLAGS="${CFLAGS}"
   export TESSERACT=false
 else
   export TESSERACT=yes
+fi
+if [[ "$target_platform" == osx-arm64 ]]; then
+  export ARCHFLAGS="-arch arm64"
 fi
 export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz"
 export XCFLAGS="${CFLAGS}"
