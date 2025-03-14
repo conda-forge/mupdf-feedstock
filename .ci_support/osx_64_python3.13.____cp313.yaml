@@ -26,8 +26,6 @@ harfbuzz:
 - '10'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-mesalib:
-- '25.0'
 openjpeg:
 - '2'
 pin_run_as_build:
