@@ -1,14 +1,14 @@
-From 4d4a5423abfc0965b21482aa90c332a7a231f251 Mon Sep 17 00:00:00 2001
+From 21100dbd9b09ada9bd3def2a52ff5d56b895d112 Mon Sep 17 00:00:00 2001
 From: Jan Janssen <jan-janssen@users.noreply.github.com>
-Date: Sun, 16 Jun 2024 07:45:00 +0200
+Date: Thu, 3 Jul 2025 19:30:16 +0200
 Subject: [PATCH] Update Makefile
 
 ---
- Makefile | 55 +++++++++++++++----------------------------------------
- 1 file changed, 15 insertions(+), 40 deletions(-)
+ Makefile | 52 ++++++++++++++++------------------------------------
+ 1 file changed, 16 insertions(+), 36 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index e3cedca..a33a47a 100644
+index 7b04ff5cd1..dc6c220d17 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -22,7 +22,7 @@ include Makethird
@@ -20,68 +20,59 @@ index e3cedca..a33a47a 100644
  LIBS += $(XLIBS) -lm
  
  LDFLAGS += $(XLDFLAGS)
-@@ -298,47 +298,28 @@ generate: source/html/css-properties.h
+@@ -290,37 +290,21 @@ generate: source/html/css-properties.h
  
  # --- Library ---
  
 -ifeq ($(shared),yes)
--MUPDF_LIB = $(OUT)/libmupdf.$(SO)$(SO_VERSION)
--ifeq ($(SO),dll)
--MUPDF_LIB_IMPORT = $(OUT)/libmupdf_$(SO).a
--LIBS_TO_INSTALL_IN_BIN = $(MUPDF_LIB)
--LIBS_TO_INSTALL_IN_LIB = $(MUPDF_LIB_IMPORT)
+-  $(OUT)/libmupdf.$(SO)$(SO_VERSION): $(MUPDF_OBJ) $(THIRD_OBJ)
+-	$(LINK_SO_CMD) $(THIRD_LIBS) $(LIBCRYPTO_LIBS)
+-  ifeq ($(OS),OpenBSD)
+-    # should never create symlink
+-    MUPDF_LIB = $(OUT)/libmupdf.$(SO)$(SO_VERSION)
+-  else
+-    MUPDF_LIB = $(OUT)/libmupdf.$(SO)
+-    ifneq ($(SO_VERSION),)
+-      # create symlink with soname if needed
+-      $(OUT)/libmupdf.$(SO): $(OUT)/libmupdf.$(SO)$(SO_VERSION)
+-	$(SYMLINK_CMD) $(notdir $<) $@
+-    endif
+-  endif
 -else
+-  MUPDF_LIB = $(OUT)/libmupdf.a
+-  THIRD_LIB = $(OUT)/libmupdf-third.a
+-  $(MUPDF_LIB) : $(MUPDF_OBJ)
+-  $(THIRD_LIB) : $(THIRD_OBJ)
+-endif
 +MUPDF_LIB = $(OUT)/libmupdf.dylib
- LIBS_TO_INSTALL_IN_LIB = $(MUPDF_LIB)
--endif
--ifneq ($(USE_SYSTEM_GLUT),yes)
--THIRD_GLUT_LIB = $(OUT)/libmupdf-glut.a
--endif
--THREAD_LIB = $(OUT)/libmupdf-threads.a
--PKCS7_LIB = $(OUT)/libmupdf-pkcs7.a
--
--$(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_OBJ)
--$(THIRD_GLUT_LIB) : $(THIRD_GLUT_OBJ)
--$(THREAD_LIB) : $(THREAD_OBJ)
--$(PKCS7_LIB) : $(PKCS7_OBJ)
--else
--MUPDF_LIB = $(OUT)/libmupdf.a
--LIBS_TO_INSTALL_IN_LIB = $(MUPDF_LIB) $(THIRD_LIB)
--THIRD_LIB = $(OUT)/libmupdf-third.a
--ifneq ($(USE_SYSTEM_GLUT),yes)
--THIRD_GLUT_LIB = $(OUT)/libmupdf-glut.a
--endif
--THREAD_LIB = $(OUT)/libmupdf-threads.a
--PKCS7_LIB = $(OUT)/libmupdf-pkcs7.a
 +THREAD_LIB = $(OUT)/libmupdf-threads.dylib
 +PKCS7_LIB = $(OUT)/libmupdf-pkcs7.dylib
 +THIRD_LIB = $(OUT)/libmupdf-third.dylib
  
- $(MUPDF_LIB) : $(MUPDF_OBJ)
- $(THIRD_LIB) : $(THIRD_OBJ)
--$(THIRD_GLUT_LIB) : $(THIRD_GLUT_OBJ)
- $(THREAD_LIB) : $(THREAD_OBJ)
- $(PKCS7_LIB) : $(PKCS7_OBJ)
+-ifneq ($(USE_SYSTEM_GLUT),yes)
+-  THIRD_GLUT_LIB = $(OUT)/libmupdf-glut.a
+-  $(THIRD_GLUT_LIB) : $(THIRD_GLUT_OBJ)
 -endif
- 
--$(MUPDF_LIB) : $(MUPDF_OBJ)
+-
+-THREAD_LIB = $(OUT)/libmupdf-threads.a
 +$(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_LIB) $(THREAD_LIB)
-+	$(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
- $(THIRD_LIB) : $(THIRD_OBJ)
-+	$(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-third.dylib -undefined dynamic_lookup
++       $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
++$(THIRD_LIB) : $(THIRD_OBJ)
++       $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-third.dylib -undefined dynamic_lookup
  $(THREAD_LIB) : $(THREAD_OBJ)
-+	$(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-threads.dylib -undefined dynamic_lookup -lpthread
+-
+-PKCS7_LIB = $(OUT)/libmupdf-pkcs7.a
++       $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-threads.dylib -undefined dynamic_lookup -lpthread
  $(PKCS7_LIB) : $(PKCS7_OBJ)
-+	$(LINK_CMD) -v -shared -Wl,-install_name -Wl,libmupdf-pkcs7.dylib -undefined dynamic_lookup
++       $(LINK_CMD) -v -shared -Wl,-install_name -Wl,libmupdf-pkcs7.dylib -undefined dynamic_lookup
++
++LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB)
  
-+LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB) 
-+ 
  # --- Main tools and viewers ---
  
- MUTOOL_SRC := source/tools/mutool.c
-@@ -492,10 +473,10 @@ install-docs:
+@@ -475,10 +459,10 @@ install-docs:
+ 	install -d $(DESTDIR)$(mandir)/man1
  	install -m 644 docs/man/*.1 $(DESTDIR)$(mandir)/man1
- 
  	install -d $(DESTDIR)$(docdir)
 -	install -d $(DESTDIR)$(docdir)/examples
 +	# install -d $(DESTDIR)$(docdir)/examples
@@ -93,19 +84,13 @@ index e3cedca..a33a47a 100644
  
  install: install-libs install-apps install-docs
  
-@@ -645,16 +626,10 @@ endif
- install-shared-c: install-shared-check shared install-headers
- 	install -d $(DESTDIR)$(libdir)
- 	install -m $(SO_INSTALL_MODE) $(OUT)/libmupdf.$(SO)$(SO_VERSION) $(DESTDIR)$(libdir)/
--ifneq ($(OS),OpenBSD)
--	ln -sf libmupdf.$(SO)$(SO_VERSION) $(DESTDIR)$(libdir)/libmupdf.$(SO)
--endif
- 
+@@ -638,10 +622,6 @@ install-shared-c: install-shared-check install-libs install-headers
  install-shared-c++: install-shared-c c++
  	install -m 644 platform/c++/include/mupdf/*.h $(DESTDIR)$(incdir)/mupdf
  	install -m $(SO_INSTALL_MODE) $(OUT)/libmupdfcpp.$(SO)$(SO_VERSION) $(DESTDIR)$(libdir)/
 -ifneq ($(OS),OpenBSD)
 -	ln -sf libmupdfcpp.$(SO)$(SO_VERSION) $(DESTDIR)$(libdir)/libmupdfcpp.$(SO)
+-	ln -sf libmupdfcpp.$(SO)$(SO_VERSION) $(DESTDIR)$(libdir)/libmupdfcpp.$(SO)$(SO_VERSION_MAJOR)
 -endif
  
  install-shared-python: install-shared-c++ python
