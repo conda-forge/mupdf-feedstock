@@ -1,14 +1,14 @@
-From 830f49c4f6619a5fd78b616be0070abcaa3aeb8f Mon Sep 17 00:00:00 2001
+From 094569eb8f3872944b7422d8d6f3c02d00e910a4 Mon Sep 17 00:00:00 2001
 From: Jan Janssen <jan-janssen@users.noreply.github.com>
-Date: Thu, 3 Jul 2025 22:11:53 +0200
+Date: Thu, 3 Jul 2025 22:42:33 +0200
 Subject: [PATCH] Update Makefile
 
 ---
- Makefile | 50 ++++++++++++++++----------------------------------
- 1 file changed, 16 insertions(+), 34 deletions(-)
+ Makefile | 47 +++++++++++++----------------------------------
+ 1 file changed, 13 insertions(+), 34 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index d5cab8a119..8a30e45f9a 100644
+index d5cab8a119..164345704c 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -22,7 +22,7 @@ include Makethird
@@ -20,14 +20,9 @@ index d5cab8a119..8a30e45f9a 100644
  LIBS += $(XLIBS) -lm
  
  LDFLAGS += $(XLDFLAGS)
-@@ -295,38 +295,24 @@ source/html/css-properties.h: source/html/css-properties.gperf
- generate: source/html/css-properties.h
+@@ -296,37 +296,20 @@ generate: source/html/css-properties.h
  
  # --- Library ---
-+MUPDF_LIB = $(OUT)/libmupdf.dylib
-+THREAD_LIB = $(OUT)/libmupdf-threads.dylib
-+PKCS7_LIB = $(OUT)/libmupdf-pkcs7.dylib
-+THIRD_LIB = $(OUT)/libmupdf-third.dylib
  
 -ifeq ($(shared),yes)
 -  $(OUT)/libmupdf.$(SO)$(SO_VERSION): $(MUPDF_OBJ) $(THIRD_OBJ)
@@ -49,15 +44,16 @@ index d5cab8a119..8a30e45f9a 100644
 -  $(MUPDF_LIB) : $(MUPDF_OBJ)
 -  $(THIRD_LIB) : $(THIRD_OBJ)
 -endif
-+$(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_LIB) $(THREAD_LIB)
-+	$(LINK_SO_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
++MUPDF_LIB = $(OUT)/libmupdf.dylib
++THREAD_LIB = $(OUT)/libmupdf-threads.dylib
++PKCS7_LIB = $(OUT)/libmupdf-pkcs7.dylib
  
 -ifneq ($(USE_SYSTEM_GLUT),yes)
 -  THIRD_GLUT_LIB = $(OUT)/libmupdf-glut.a
 -  $(THIRD_GLUT_LIB) : $(THIRD_GLUT_OBJ)
 -endif
-+$(THIRD_LIB) : $(THIRD_OBJ)
-+	$(LINK_SO_CMD) -shared -Wl,-install_name -Wl,libmupdf-third.dylib -undefined dynamic_lookup
++$(MUPDF_LIB): $(MUPDF_OBJ) $(THIRD_OBJ)
++	$(LINK_SO_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
  
 -THREAD_LIB = $(OUT)/libmupdf-threads.a
  $(THREAD_LIB) : $(THREAD_OBJ)
@@ -67,11 +63,11 @@ index d5cab8a119..8a30e45f9a 100644
  $(PKCS7_LIB) : $(PKCS7_OBJ)
 +	$(LINK_SO_CMD) -shared -Wl,-install_name -Wl,libmupdf-pkcs7.dylib -undefined dynamic_lookup
 +
-+LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB)
++LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THREAD_LIB) $(PKCS7_LIB)
  
  # --- Main tools and viewers ---
  
-@@ -478,10 +464,10 @@ install-docs:
+@@ -478,10 +461,10 @@ install-docs:
  	install -d $(DESTDIR)$(mandir)/man1
  	install -m 644 docs/man/*.1 $(DESTDIR)$(mandir)/man1
  	install -d $(DESTDIR)$(docdir)
@@ -85,7 +81,7 @@ index d5cab8a119..8a30e45f9a 100644
  
  install: install-libs install-apps install-docs
  
-@@ -640,10 +626,6 @@ install-shared-c: install-shared-check install-libs install-headers
+@@ -640,10 +623,6 @@ install-shared-c: install-shared-check install-libs install-headers
  install-shared-c++: install-shared-c c++
  	install -m 644 platform/c++/include/mupdf/*.h $(DESTDIR)$(incdir)/mupdf
  	install -m $(SO_INSTALL_MODE) $(OUT)/libmupdfcpp.$(SO)$(SO_VERSION) $(DESTDIR)$(libdir)/
