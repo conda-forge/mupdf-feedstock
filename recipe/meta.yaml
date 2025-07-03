@@ -57,7 +57,7 @@ requirements:
     - freeglut  # [linux or win]
     - tesseract  # [linux]
     - leptonica  # [linux]
-    - libbrotlienc
+    - brotli
   run:
     - python
     - xorg-libxext  # [linux]
