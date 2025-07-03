@@ -56,15 +56,15 @@ index 7b04ff5cd1..dc6c220d17 100644
 -
 -THREAD_LIB = $(OUT)/libmupdf-threads.a
 +$(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_LIB) $(THREAD_LIB)
-+       $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
++ $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
 +$(THIRD_LIB) : $(THIRD_OBJ)
-+       $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-third.dylib -undefined dynamic_lookup
++ $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-third.dylib -undefined dynamic_lookup
  $(THREAD_LIB) : $(THREAD_OBJ)
 -
 -PKCS7_LIB = $(OUT)/libmupdf-pkcs7.a
-+       $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-threads.dylib -undefined dynamic_lookup -lpthread
++ $(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-threads.dylib -undefined dynamic_lookup -lpthread
  $(PKCS7_LIB) : $(PKCS7_OBJ)
-+       $(LINK_CMD) -v -shared -Wl,-install_name -Wl,libmupdf-pkcs7.dylib -undefined dynamic_lookup
++ $(LINK_CMD) -v -shared -Wl,-install_name -Wl,libmupdf-pkcs7.dylib -undefined dynamic_lookup
 +
 +LIBS_TO_INSTALL_IN_LIB := $(MUPDF_LIB) $(THIRD_LIB) $(THREAD_LIB) $(PKCS7_LIB)
  
