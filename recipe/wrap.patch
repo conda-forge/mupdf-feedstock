@@ -27,7 +27,7 @@ index ddd23a2815..3c689bee91 100644
                      if build_python:
                          cpp_path = build_dirs.mupdfcpp_swig_cpp('python')
 -                        out_so = f'{build_dirs.dir_so}/_mupdf.so'
-+                        out_so = f'{build_dirs.dir_so}/_mupdf.dylib'
++                        out_so = f'{build_dirs.dir_so}/_mupdf.so'
                      elif build_csharp:
                          cpp_path = build_dirs.mupdfcpp_swig_cpp('csharp')
                          out_so = f'{build_dirs.dir_so}/mupdfcsharp.so'  # todo: append {so_version} ?
