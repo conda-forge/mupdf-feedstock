@@ -8,7 +8,8 @@ The jbig2dec library changed the Jbig2ErrorCallback signature to use
 
 ---
  source/fitz/filter-jbig2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ source/fitz/load-jbig2.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/source/fitz/filter-jbig2.c b/source/fitz/filter-jbig2.c
 index 1111111..2222222 100644
@@ -23,3 +24,16 @@ index 1111111..2222222 100644
  {
  	fz_context *ctx = data;
  	char idxbuf[50] = "";
+diff --git a/source/fitz/load-jbig2.c b/source/fitz/load-jbig2.c
+index 3333333..4444444 100644
+--- a/source/fitz/load-jbig2.c
++++ b/source/fitz/load-jbig2.c
+@@ -85,7 +85,7 @@ fz_jbig2_alloc_realloc(Jbig2Allocator *allocator_, void *p, size_t size)
+ }
+
+ static void
+-error_callback(void *data, const char *msg, Jbig2Severity severity, uint32_t seg_idx)
++error_callback(void *data, const char *msg, Jbig2Severity severity, int seg_idx)
+ {
+ 	fz_context *ctx = data;
+ 	if (severity == JBIG2_SEVERITY_FATAL)
