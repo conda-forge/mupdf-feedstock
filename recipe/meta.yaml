@@ -18,6 +18,8 @@ source:
     # OSX has libfreetype.a, not libfreetype2.a
     - Makerules.patch  # [osx]
     - wrap.patch  # [osx]
+    # Fix jbig2dec callback signature (int vs uint32_t)
+    - jbig2dec-callback.patch
 
 build:
   number: 0

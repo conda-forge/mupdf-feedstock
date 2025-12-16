@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: conda-forge <conda-forge@users.noreply.github.com>
+Date: Mon, 16 Dec 2024 00:00:00 +0000
+Subject: [PATCH] Fix jbig2dec callback signature compatibility
+
+The jbig2dec library changed the Jbig2ErrorCallback signature to use
+'int' instead of 'uint32_t' for the segment index parameter.
+
+---
+ source/fitz/filter-jbig2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/source/fitz/filter-jbig2.c b/source/fitz/filter-jbig2.c
+index 1111111..2222222 100644
+--- a/source/fitz/filter-jbig2.c
++++ b/source/fitz/filter-jbig2.c
+@@ -163,7 +163,7 @@ struct fz_jbig2d_s
+ };
+
+ static void
+-error_callback(void *data, const char *msg, Jbig2Severity severity, uint32_t seg_idx)
++error_callback(void *data, const char *msg, Jbig2Severity severity, int seg_idx)
+ {
+ 	fz_context *ctx = data;
+ 	char idxbuf[50] = "";
