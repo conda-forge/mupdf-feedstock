@@ -1,7 +1,9 @@
+brotli:
+- '1.1'
 c_compiler:
 - gcc
 c_compiler_version:
-- '13'
+- '14'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -17,13 +19,11 @@ curl:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '13'
+- '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 freetype:
 - '2'
-harfbuzz:
-- 11.0.1
 openjpeg:
 - '2'
 pin_run_as_build:
