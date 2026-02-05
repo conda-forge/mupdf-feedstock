@@ -4,8 +4,8 @@ Date: Tue, 9 Apr 2024 16:30:40 -0500
 Subject: [PATCH] Update __main__.py
 
 ---
- scripts/wrap/__main__.py | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ scripts/wrap/__main__.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/scripts/wrap/__main__.py b/scripts/wrap/__main__.py
 index ddd23a2815..3c689bee91 100644
@@ -22,15 +22,6 @@ index ddd23a2815..3c689bee91 100644
                      if pyodide:
                          # Compile/link separately. Otherwise
                          # emsdk/upstream/bin/llvm-nm: error: a.out: No such
-@@ -2055,7 +2055,7 @@ def fn(name):
- 
-                     if build_python:
-                         cpp_path = build_dirs.mupdfcpp_swig_cpp('python')
--                        out_so = f'{build_dirs.dir_so}/_mupdf.so'
-+                        out_so = f'{build_dirs.dir_so}/_mupdf.dylib'
-                     elif build_csharp:
-                         cpp_path = build_dirs.mupdfcpp_swig_cpp('csharp')
-                         out_so = f'{build_dirs.dir_so}/mupdfcsharp.so'  # todo: append {so_version} ?
 @@ -2226,8 +2226,8 @@ def fn(name):
                                  )
                          if command_was_run:

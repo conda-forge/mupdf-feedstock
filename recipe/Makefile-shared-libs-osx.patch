@@ -66,7 +66,7 @@ index e3cedca..a33a47a 100644
  
 -$(MUPDF_LIB) : $(MUPDF_OBJ)
 +$(MUPDF_LIB) : $(MUPDF_OBJ) $(THIRD_LIB) $(THREAD_LIB)
-+	$(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS)
++	$(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf.dylib -undefined dynamic_lookup $(THIRD_LIBS) -lgumbo
  $(THIRD_LIB) : $(THIRD_OBJ)
 +	$(LINK_CMD) -shared -Wl,-install_name -Wl,libmupdf-third.dylib -undefined dynamic_lookup
  $(THREAD_LIB) : $(THREAD_OBJ)
