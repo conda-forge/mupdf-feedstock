@@ -46,6 +46,7 @@ requirements:
     - jbig2dec
     - openjpeg
     - zlib
+    - brotli
     - curl
     - harfbuzz
     - freeglut  # [linux or win]
