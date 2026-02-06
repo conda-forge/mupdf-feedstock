@@ -10,14 +10,8 @@ source:
   sha256: 5a1fce7373048a3e8985d6616ee37caaa1885ab90c1b0b3956bdb53d6ecd22af
 
   patches:
-    # Make shared libs, rather than static
-    # https://bugs.ghostscript.com/show_bug.cgi?id=702250
-    # don't install fully rendered docs
-    - Makefile-shared-libs-linux.patch  # [linux]
-    - Makefile-shared-libs-osx.patch  # [osx]
-    # OSX has libfreetype.a, not libfreetype2.a
+    # Fix freetype lib name and remove xcrun wrappers for conda compilers
     - Makerules.patch  # [osx]
-    - wrap.patch  # [osx]
 
 build:
   number: 0

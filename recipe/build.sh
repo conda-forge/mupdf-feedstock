@@ -11,6 +11,8 @@ if [[ "$target_platform" == osx* ]]; then
   export CFLAGS="${CFLAGS} -Wno-incompatible-function-pointer-types"
   #export SYS_FREETYPE_LIBS=" -lfreetype"
   #export SYS_FREETYPE_CFLAGS="${CFLAGS}"
+  # macOS doesn't do pkg-config for gumbo in Makerules, so set it explicitly
+  export SYS_GUMBO_LIBS="-lgumbo"
   export TESSERACT=false
 else
   export TESSERACT=yes
