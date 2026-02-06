@@ -41,7 +41,7 @@ requirements:
     - make
     - pkg-config
     - swig
-    - python-clang
+    - python-clang <21
   host:
     - python
     - xorg-libxfixes  # [linux]
