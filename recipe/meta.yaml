@@ -40,7 +40,7 @@ requirements:
     - ninja  # [win]
     - make
     - pkg-config
-    - swig
+    - swig >=4.0,<4.4
     - python-clang <21
   host:
     - python
