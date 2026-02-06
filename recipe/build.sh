@@ -17,7 +17,7 @@ fi
 if [[ "$target_platform" == osx-arm64 ]]; then
   export ARCHFLAGS="-arch arm64"
 fi
-export CFLAGS="${CFLAGS} -Wno-incompatible-function-pointer-types"
+export CFLAGS="${CFLAGS} -Wno-incompatible-pointer-types"
 export CFLAGS="${CFLAGS} -I ${PREFIX}/include/harfbuzz"
 export XCFLAGS="${CFLAGS}"
 export XLIBS="${LIBS}"
