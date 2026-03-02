@@ -47,7 +47,7 @@ requirements:
     - make
     - pkg-config
     - swig
-    - python-clang
+    - python-clang <22
   host:
     - brotli
     - python
@@ -55,7 +55,7 @@ requirements:
       then:
         - pip
         - setuptools
-        - python-clang
+        - python-clang <22
     - if: linux
       then:
         - xorg-libxfixes
