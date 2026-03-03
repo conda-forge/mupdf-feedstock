@@ -51,13 +51,29 @@ msbuild %SLN_DIR%\%SLN_FILE% ^
 if errorlevel 1 exit 1
 
 :: -----------------------------------------------------------------------
-:: Install mutool and headers
+:: Install mutool, headers, and libraries
 :: -----------------------------------------------------------------------
 cmake -E make_directory %LIBRARY_BIN%
 if errorlevel 1 exit 1
 cmake -E copy %SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\mutool.exe %LIBRARY_BIN%\
 if errorlevel 1 exit 1
+
+:: Install C headers
 cmake -E make_directory %LIBRARY_INC%
 if errorlevel 1 exit 1
 cmake -E copy_directory %SRC_DIR%\include %LIBRARY_INC%
 if errorlevel 1 exit 1
+
+:: Install generated C++ binding headers (classes.h, classes2.h, etc.)
+cmake -E copy_directory %SRC_DIR%\platform\c++\include %LIBRARY_INC%
+if errorlevel 1 exit 1
+
+:: Install import libraries (.lib) and DLLs
+cmake -E make_directory %LIBRARY_LIB%
+if errorlevel 1 exit 1
+for %%f in (%SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\*.lib) do (
+    copy "%%f" "%LIBRARY_LIB%\"
+)
+for %%f in (%SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\*.dll) do (
+    copy "%%f" "%LIBRARY_BIN%\"
+)
