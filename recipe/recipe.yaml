@@ -21,7 +21,7 @@ source:
         - python-ext-so.patch
 
 build:
-  number: 3
+  number: 4
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
