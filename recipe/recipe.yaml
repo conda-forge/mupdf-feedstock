@@ -1,6 +1,6 @@
 context:
   name: mupdf
-  version: "1.27.2"
+  version: "1.26.12"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://www.mupdf.com/downloads/archive/mupdf-${{ version }}-source.tar.gz
-  sha256: 553867b135303dc4c25ab67c5f234d8e900a0e36e66e8484d99adc05fe1e8737
+  sha256: 6baf910928f404167ba49be6340195dec340795724722b331f5a2143f5aa0d01
   patches:
     - if: osx
       then:
@@ -19,9 +19,15 @@ source:
         - wrap.patch
         # Python extensions must be .so even on macOS, not .dylib
         - python-ext-so.patch
+    # Make get_args caching compatible with unhashable cursors in older libclang
+    - if: linux or osx
+      then:
+        - wrap-parse.patch
 
 build:
-  number: 5
+  number: 0
+  skip:
+    - win
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
