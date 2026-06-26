@@ -1,6 +1,6 @@
 context:
   name: mupdf
-  version: "1.27.2"
+  version: "1.28.0"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://www.mupdf.com/downloads/archive/mupdf-${{ version }}-source.tar.gz
-  sha256: 553867b135303dc4c25ab67c5f234d8e900a0e36e66e8484d99adc05fe1e8737
+  sha256: 21c7f064903154f1c3a7458bee81f130fc36f9b5147ea13328f9980e02d2dea2
   patches:
     - if: osx
       then:
@@ -21,7 +21,7 @@ source:
         - python-ext-so.patch
 
 build:
-  number: 5
+  number: 0
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
