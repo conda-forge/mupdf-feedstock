@@ -19,9 +19,13 @@ source:
         - wrap.patch
         # Python extensions must be .so even on macOS, not .dylib
         - python-ext-so.patch
+    - if: win
+      then:
+        # Find python3XX.lib when headers live in include/python/ (Python 3.15+)
+        - wdev-libs.patch
 
 build:
-  number: 2
+  number: 3
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
