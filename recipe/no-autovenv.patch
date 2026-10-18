@@ -1,0 +1,13 @@
+--- a/scripts/wrap/__main__.py
++++ b/scripts/wrap/__main__.py
+@@ -924,7 +924,9 @@
+ finally:
+     del sys.path[0]
+ 
+-autovenv.enter()
++# conda-forge: don't re-run inside a fresh venv; it hides conda-installed
++# build dependencies (pipcl, clang, swig).
++#autovenv.enter()
+ 
+ # Install/import pipcl. We don't pass 'pipcl' to above call to autovenv.enter()
+ # because this would do `pip install pipcl`, which seems to fail if we are

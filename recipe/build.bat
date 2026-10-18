@@ -29,6 +29,10 @@ set "PTH_FILE=%PREFIX%\Lib\site-packages\_conda_dll_search.pth"
 :: setup.py runs scripts/mupdfwrap.py with actions 0,1,2,3 (generate C++,
 :: build mupdfcpp64.dll via devenv, run SWIG, build _mupdf.pyd).
 :: -----------------------------------------------------------------------
+:: Work around pipcl's wdev.py not finding python3XX.lib on Python 3.15+.
+"%PYTHON%" -B "%RECIPE_DIR%\fix_pipcl_wdev.py"
+if errorlevel 1 exit 1
+
 set MUPDF_SETUP_USE_CLANG_PYTHON=1
 set MUPDF_SETUP_USE_SWIG=1
 pip install . --no-deps --no-build-isolation

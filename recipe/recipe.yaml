@@ -19,6 +19,9 @@ source:
         - wrap.patch
         # Python extensions must be .so even on macOS, not .dylib
         - python-ext-so.patch
+    # mupdfwrap.py unconditionally re-runs itself in a fresh venv, hiding
+    # conda-installed build dependencies
+    - no-autovenv.patch
 
 build:
   number: 0
@@ -46,6 +49,9 @@ requirements:
     # errors. Pin below 4.5 until upstream mupdf supports SWIG 4.5.
     - swig <4.5
     - python-clang <22
+    # mupdfwrap.py runs with the build python on unix
+    - if: unix
+      then: pipcl
   host:
     - brotli
     - python
@@ -53,6 +59,7 @@ requirements:
       then:
         - pip
         - setuptools
+        - pipcl
         - python-clang <22
     - if: linux
       then:
