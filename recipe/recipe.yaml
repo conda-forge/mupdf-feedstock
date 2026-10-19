@@ -1,6 +1,6 @@
 context:
   name: mupdf
-  version: "1.28.0"
+  version: "1.28.5"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://www.mupdf.com/downloads/archive/mupdf-${{ version }}-source.tar.gz
-  sha256: 21c7f064903154f1c3a7458bee81f130fc36f9b5147ea13328f9980e02d2dea2
+  sha256: 98a5c10cda20c3992cdf76ff6b2a1149c32bd79cc796d3f703230b1185b7e934
   patches:
     - if: osx
       then:
@@ -19,13 +19,12 @@ source:
         - wrap.patch
         # Python extensions must be .so even on macOS, not .dylib
         - python-ext-so.patch
-    - if: win
-      then:
-        # Find python3XX.lib when headers live in include/python/ (Python 3.15+)
-        - wdev-libs.patch
+    # mupdfwrap.py unconditionally re-runs itself in a fresh venv, hiding
+    # conda-installed build dependencies
+    - no-autovenv.patch
 
 build:
-  number: 3
+  number: 0
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
@@ -50,6 +49,9 @@ requirements:
     # errors. Pin below 4.5 until upstream mupdf supports SWIG 4.5.
     - swig <4.5
     - python-clang <22
+    # mupdfwrap.py runs with the build python on unix
+    - if: unix
+      then: pipcl
   host:
     - brotli
     - python
@@ -57,6 +59,7 @@ requirements:
       then:
         - pip
         - setuptools
+        - pipcl
         - python-clang <22
     - if: linux
       then:
