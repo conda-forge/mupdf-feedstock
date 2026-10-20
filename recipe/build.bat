@@ -72,12 +72,14 @@ if errorlevel 1 exit 1
 cmake -E copy_directory %SRC_DIR%\platform\c++\include %LIBRARY_INC%
 if errorlevel 1 exit 1
 
-:: Install import libraries (.lib) and DLLs
+:: Install the import library and DLLs. The other .lib files in the build
+:: directory are static libraries (libmupdf, libharfbuzz, libtesseract, ...)
+:: that are already linked into mupdfcpp64.dll and mutool.exe. They add about
+:: 1.5 GB to the installed package, so don't ship them.
 cmake -E make_directory %LIBRARY_LIB%
 if errorlevel 1 exit 1
-for %%f in (%SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\*.lib) do (
-    copy "%%f" "%LIBRARY_LIB%\"
-)
+cmake -E copy %SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\mupdfcpp64.lib %LIBRARY_LIB%\
+if errorlevel 1 exit 1
 for %%f in (%SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\*.dll) do (
     copy "%%f" "%LIBRARY_BIN%\"
 )
