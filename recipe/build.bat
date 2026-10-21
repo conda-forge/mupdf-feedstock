@@ -42,6 +42,12 @@ if errorlevel 1 exit 1
 del "%PTH_FILE%" 2>nul
 del "%LIBRARY_BIN%\libclang.dll" 2>nul
 
+:: pip puts a copy of mupdfcpp64.dll next to _mupdf.pyd. The copy installed to
+:: %LIBRARY_BIN% below is enough, because conda-forge Python adds Library\bin to
+:: the DLL search path. Shipping both adds 45 MB.
+del "%SP_DIR%\mupdfcpp64.dll"
+if errorlevel 1 exit 1
+
 :: -----------------------------------------------------------------------
 :: Build mutool via MSBuild.  No PlatformToolset override — uses the .sln's
 :: native toolset, matching devenv above, and reuses the libmupdf.lib that

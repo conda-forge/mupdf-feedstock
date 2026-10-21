@@ -24,7 +24,7 @@ source:
     - no-autovenv.patch
 
 build:
-  number: 1
+  number: 2
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
@@ -98,6 +98,8 @@ tests:
         then:
           - if not exist %LIBRARY_BIN%\\mutool.exe exit 1
           - if not exist %LIBRARY_LIB%\\mupdfcpp64.lib exit 1
+          - if not exist %LIBRARY_BIN%\\mupdfcpp64.dll exit 1
+          - if exist %PREFIX%\\Lib\\site-packages\\mupdfcpp64.dll exit 1
           - mutool -v
   - python:
       imports:
