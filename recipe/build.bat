@@ -49,15 +49,36 @@ del "%SP_DIR%\mupdfcpp64.dll"
 if errorlevel 1 exit 1
 
 :: -----------------------------------------------------------------------
-:: Build mutool via MSBuild.  No PlatformToolset override — uses the .sln's
-:: native toolset, matching devenv above, and reuses the libmupdf.lib that
-:: was already built.
+:: Build mutool against mupdfcpp64.dll instead of the solution's mutool
+:: target, which statically links all of MuPDF and its third-party
+:: libraries (about 46 MB). The DLL exports every public fz_/pdf_ function
+:: and global (see platform\c++\windows_mupdf.def), so the tools only need
+:: FZ_DLL_CLIENT plus the few things the DLL doesn't export: mujs for
+:: `mutool run`, and the mu-threads and pkcs7 helpers. These match the
+:: sources of the libmutool, libmuthreads and libpkcs7 projects.
 :: -----------------------------------------------------------------------
-msbuild %SLN_DIR%\%SLN_FILE% ^
-    /p:Configuration=%CONFIG% ^
-    /p:Platform=%SLN_PLAT% ^
-    /t:mutool ^
-    /verbosity:normal
+set "MUTOOL_DIR=%SRC_DIR%\build-mutool"
+cmake -E make_directory "%MUTOOL_DIR%"
+if errorlevel 1 exit 1
+set "TOOLS=%SRC_DIR%\source\tools"
+cl.exe /nologo /O2 /MD /W3 ^
+    /DWIN64 /DNDEBUG /D_CRT_SECURE_NO_WARNINGS /DFZ_DLL_CLIENT ^
+    /DHAVE_LEPTONICA /DHAVE_TESSERACT ^
+    /I"%SRC_DIR%\include" /I"%SRC_DIR%\thirdparty\mujs" ^
+    "%TOOLS%\mutool.c" ^
+    "%TOOLS%\cmapdump.c" "%TOOLS%\mubar.c" "%TOOLS%\muconvert.c" ^
+    "%TOOLS%\mudraw.c" "%TOOLS%\mugrep.c" "%TOOLS%\murun.c" ^
+    "%TOOLS%\mutrace.c" "%TOOLS%\pdfaudit.c" "%TOOLS%\pdfbake.c" ^
+    "%TOOLS%\pdfclean.c" "%TOOLS%\pdfcreate.c" "%TOOLS%\pdfextract.c" ^
+    "%TOOLS%\pdfinfo.c" "%TOOLS%\pdfmerge.c" "%TOOLS%\pdfpages.c" ^
+    "%TOOLS%\pdfposter.c" "%TOOLS%\pdfrecolor.c" "%TOOLS%\pdfshow.c" ^
+    "%TOOLS%\pdfsign.c" "%TOOLS%\pdftrim.c" ^
+    "%SRC_DIR%\source\helpers\mu-threads\mu-threads.c" ^
+    "%SRC_DIR%\source\helpers\pkcs7\pkcs7-openssl.c" ^
+    "%SRC_DIR%\thirdparty\mujs\one.c" ^
+    /Fo"%MUTOOL_DIR%\\" /Fe"%MUTOOL_DIR%\mutool.exe" ^
+    /link "%SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\mupdfcpp64.lib" ^
+    wsetargv.obj kernel32.lib user32.lib advapi32.lib shell32.lib
 if errorlevel 1 exit 1
 
 :: -----------------------------------------------------------------------
@@ -65,7 +86,7 @@ if errorlevel 1 exit 1
 :: -----------------------------------------------------------------------
 cmake -E make_directory %LIBRARY_BIN%
 if errorlevel 1 exit 1
-cmake -E copy %SRC_DIR%\%SLN_DIR%\%SLN_PLAT%\%CONFIG%\mutool.exe %LIBRARY_BIN%\
+cmake -E copy "%MUTOOL_DIR%\mutool.exe" %LIBRARY_BIN%\
 if errorlevel 1 exit 1
 
 :: Install C headers
@@ -80,7 +101,7 @@ if errorlevel 1 exit 1
 
 :: Install the import library and DLLs. The other .lib files in the build
 :: directory are static libraries (libmupdf, libharfbuzz, libtesseract, ...)
-:: that are already linked into mupdfcpp64.dll and mutool.exe. They add about
+:: that are already linked into mupdfcpp64.dll. They add about
 :: 1.5 GB to the installed package, so don't ship them.
 cmake -E make_directory %LIBRARY_LIB%
 if errorlevel 1 exit 1
