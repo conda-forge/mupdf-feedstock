@@ -22,6 +22,11 @@ source:
     # mupdfwrap.py unconditionally re-runs itself in a fresh venv, hiding
     # conda-installed build dependencies
     - no-autovenv.patch
+    - if: win
+      then:
+        # Export the Windows-only functions mutool needs from mupdfcpp64.dll
+        # so mutool.exe can link against the DLL
+        - win-def-exports.patch
 
 build:
   number: 3

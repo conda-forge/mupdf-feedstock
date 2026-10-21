@@ -1,0 +1,23 @@
+--- a/scripts/wrap/cpp.py
++++ b/scripts/wrap/cpp.py
+@@ -5855,6 +5855,20 @@
+             'FT_Get_Next_Char',
+             ):
+         windows_def += f'    {fnname}\n'
++    # conda-forge: export Windows-only public functions that mutool needs
++    # when it is linked against this DLL. They are declared inside `#ifdef
++    # _WIN32` blocks (or, for gettimeofday(), not in a public header at all),
++    # so the loop above does not find them.
++    for fnname in (
++            'fz_fopen_utf8',
++            'fz_remove_utf8',
++            'fz_argv_from_wargv',
++            'fz_free_argv',
++            'fz_stdods',
++            'gettimeofday',
++            ):
++        if f'    {fnname}\n' not in windows_def:
++            windows_def += f'    {fnname}\n'
+ 
+     if debug:
+         # In debug builds these are real fns, not macros, and we need to
