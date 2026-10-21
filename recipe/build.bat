@@ -21,7 +21,7 @@ set "CONFIG=Release"
 for %%f in ("%LIBRARY_BIN%\libclang-*.dll") do (
     copy "%%f" "%LIBRARY_BIN%\libclang.dll"
 )
-set "PTH_FILE=%PREFIX%\Lib\site-packages\_conda_dll_search.pth"
+set "PTH_FILE=%SP_DIR%\_conda_dll_search.pth"
 > "%PTH_FILE%" echo import os; os.add_dll_directory(os.environ['LIBRARY_BIN']) if hasattr(os, 'add_dll_directory') and os.environ.get('LIBRARY_BIN') and os.path.isdir(os.environ['LIBRARY_BIN']) else None
 
 :: -----------------------------------------------------------------------
@@ -41,6 +41,12 @@ if errorlevel 1 exit 1
 :: Clean up build-time artifacts so they don't get packaged.
 del "%PTH_FILE%" 2>nul
 del "%LIBRARY_BIN%\libclang.dll" 2>nul
+
+:: pip puts a copy of mupdfcpp64.dll next to _mupdf.pyd. The copy installed to
+:: %LIBRARY_BIN% below is enough, because conda-forge Python adds Library\bin to
+:: the DLL search path. Shipping both adds 45 MB.
+del "%SP_DIR%\mupdfcpp64.dll"
+if errorlevel 1 exit 1
 
 :: -----------------------------------------------------------------------
 :: Build mutool via MSBuild.  No PlatformToolset override — uses the .sln's

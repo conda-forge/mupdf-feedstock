@@ -24,7 +24,7 @@ source:
     - no-autovenv.patch
 
 build:
-  number: 1
+  number: 2
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
@@ -98,6 +98,10 @@ tests:
         then:
           - if not exist %LIBRARY_BIN%\\mutool.exe exit 1
           - if not exist %LIBRARY_LIB%\\mupdfcpp64.lib exit 1
+          - if not exist %LIBRARY_BIN%\\mupdfcpp64.dll exit 1
+          # site-packages is Lib\site-packages before Python 3.15 and
+          # lib\python\site-packages from 3.15, so ask Python where it is.
+          - python -c "import os, sys, sysconfig; sys.exit(os.path.exists(os.path.join(sysconfig.get_path('platlib'), 'mupdfcpp64.dll')))"
           - mutool -v
   - python:
       imports:
