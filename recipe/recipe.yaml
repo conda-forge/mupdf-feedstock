@@ -22,9 +22,14 @@ source:
     # mupdfwrap.py unconditionally re-runs itself in a fresh venv, hiding
     # conda-installed build dependencies
     - no-autovenv.patch
+    - if: win
+      then:
+        # Export the Windows-only functions mutool needs from mupdfcpp64.dll
+        # so mutool.exe can link against the DLL
+        - win-def-exports.patch
 
 build:
-  number: 2
+  number: 3
   dynamic_linking:
     missing_dso_allowlist:
       - if: osx
@@ -103,6 +108,13 @@ tests:
           # lib\python\site-packages from 3.15, so ask Python where it is.
           - python -c "import os, sys, sysconfig; sys.exit(os.path.exists(os.path.join(sysconfig.get_path('platlib'), 'mupdfcpp64.dll')))"
           - mutool -v
+  - files:
+      recipe:
+        - test-mutool.js
+    script:
+      - mutool run test-mutool.js
+      - mutool info mutool-test.pdf
+      - mutool draw -o mutool-test.png mutool-test.pdf 1
   - python:
       imports:
         - mupdf
